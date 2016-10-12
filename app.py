@@ -6,11 +6,6 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, 'lib'))
 
 import cherrypy
 
-class Root(object):
-    @cherrypy.expose
-    def index(self):
-        return open(os.path.join(PROJECT_ROOT, 'public', 'index.html')).read()
-
 class API(object):
     @cherrypy.expose
     @cherrypy.tools.json_out()
@@ -30,6 +25,20 @@ class API(object):
                 newfile.write(data)
         return {"status": size}
 
+    @cherrypy.expose
+    @cherrypy.tools.json_out()
+    def list_files(self):
+        return [
+            {"name": "test.jpg"},
+        ]
+
+class Root(object):
+    api = API()
+
+    @cherrypy.expose
+    def index(self):
+        return open(os.path.join(PROJECT_ROOT, 'public', 'index.html')).read()
+
 config = {
     '/index.html': {
         'tools.staticfile.on': True,
@@ -43,6 +52,5 @@ config = {
 }
 
 cherrypy.tree.mount(Root(), '/', config)
-cherrypy.tree.mount(API(), '/api', config)
 cherrypy.engine.start()
 cherrypy.engine.block()
