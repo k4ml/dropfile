@@ -18,6 +18,7 @@ form.onsubmit = function(event) {
       if (xhr.status === 200) {
         // File(s) uploaded.
         uploadButton.innerHTML = 'Upload';
+        fileSelect.value = '';
       } else {
         alert('An error occurred!');
       }
