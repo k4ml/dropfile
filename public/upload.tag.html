@@ -1,0 +1,45 @@
+<upload>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Upload Files</h3>
+    </div>
+    <div class="panel-body">
+        <form id="file-form" action="handler.php" method="POST" class="form-inline" onsubmit={ upload_file }>
+            <div class="form-group">
+                <input type="file" name="file" class="form-control" />
+                <button type="submit" name="upload" class="btn btn-primary">Upload</button>
+            </div>
+        </form>
+      <ul>
+        <li each={ items }>
+            { name }
+        </li>
+      </ul>
+    </div>
+</div>
+
+<script>
+upload_file(e) {
+    e.preventDefault();
+    var self = this;
+    var formData = new FormData();
+    var files = this.file.files;
+
+    formData.append('myfile', files[0], files[0].name);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'api/upload', true);
+
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        // File(s) uploaded.
+        self.file.value = '';
+        json = JSON.parse(xhr.response);
+        self.items = json;
+      } else {
+        alert('An error occurred!');
+      }
+    };
+    xhr.send(formData);
+}
+</script>
+</upload>

@@ -12,25 +12,21 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
     <link rel="stylesheet" href="/public/css/style.css" type="text/css" />
+    <!-- <script src="https://rawgit.com/riot/riot/master/riot%2Bcompiler.min.js"></script> -->
+    <script src="/public/js/riot+compiler.js"></script>
 </head>
 <body>
 <div class="container">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Upload Files</h3>
-        </div>
-        <div class="panel-body">
-            <form id="file-form" action="handler.php" method="POST" class="form-inline">
-                <div class="form-group">
-                    <input type="file" id="file-select" name="file" class="form-control" />
-                    <button type="submit" id="upload-button" class="btn btn-primary">Upload</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    <upload></upload>
 </div>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="public/js/app.js" type="text/javascript"></script>
+<script src="public/upload.tag.html" type="riot/tag"></script>
+
+<script>
+riot.mount('upload', {
+  title: 'Upload files',
+  items: [
+  ]
+})
+</script>
 </body>
 </html>

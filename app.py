@@ -23,7 +23,10 @@ class API(object):
                     break
                 size += len(data)
                 newfile.write(data)
-        return {"status": size}
+        return [
+            {'name': 'xxxxx'},
+            {'name': 'yyyy'},
+        ]
 
     @cherrypy.expose
     @cherrypy.tools.json_out()
