@@ -4,6 +4,8 @@ import sys
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(PROJECT_ROOT, 'lib'))
 
+STORAGE_DIR = os.path.join(PROJECT_ROOT, 'storage')
+
 import cherrypy
 
 class API(object):
@@ -15,7 +17,8 @@ class API(object):
     @cherrypy.expose
     @cherrypy.tools.json_out()
     def upload(self, myfile):
-        with open('newfile.upload', 'wb') as newfile:
+        filename = os.path.join(STORAGE_DIR, myfile.filename)
+        with open(filename, 'wb') as newfile:
             size = 0
             while True:
                 data = myfile.file.read(8192)
