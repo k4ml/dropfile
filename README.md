@@ -4,6 +4,15 @@ On top of that, Dropibit provide basic tracking, such as when the file is downlo
 
 No registration required to upload files for the initial version but sign up features will be added later.
 
+## Quickstart
+
+Download the source code repo with git:-
+
+    git clone https://github.com/k4ml/dropibit.git
+    python app.py
+
+That will start a server at http://localhost:8080/ which you can access with browser.
+
 ## Usecase
 
 People selling ebook simply through email or payment processor that doesn't have the facility to send/serve the files after payment is done. The alias url can be given to customer once they have settle the payment.
