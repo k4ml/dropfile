@@ -24,7 +24,10 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(PROJECT_ROOT, 'lib'))
 
 STORAGE_DIR = os.path.join(PROJECT_ROOT, 'storage')
+ADMIN_EMAIL = os.environ['ADMIN_EMAIL']
 
+import db
+import service
 import cherrypy
 
 class API(object):
@@ -45,6 +48,10 @@ class API(object):
                     break
                 size += len(data)
                 newfile.write(data)
+
+            if size > 0:
+                user = db.User.get(email=ADMIN_EMAIL)
+                service.save_file(user, newfile)
         return [
             {'name': 'xxxxx'},
             {'name': 'yyyy'},
@@ -76,6 +83,7 @@ config = {
     },
 }
 
+db.db.init('dropibit.db')
 cherrypy.tree.mount(Root(), '/', config)
 cherrypy.engine.start()
 cherrypy.engine.block()
