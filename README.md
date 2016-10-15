@@ -16,3 +16,12 @@ That will start a server at http://localhost:8080/ which you can access with bro
 ## Usecase
 
 People selling ebook simply through email or payment processor that doesn't have the facility to send/serve the files after payment is done. The alias url can be given to customer once they have settle the payment.
+
+## Get Involved
+
+This project indeed aim to provide learning environment for web application development, while solving a real world problem. You'll be able to learn:-
+
+* Cherrypy - Among the oldest python web framework, > 10 years being used in production websites.
+* Riotjs - A React-like user interface micro-library.
+* Automated testing.
+* Modern deployment approach. Easy to run in production setup is Dropibit main key principle.
