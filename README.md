@@ -24,6 +24,7 @@ That will start a server at http://localhost:8080/ which you can access with bro
 This project indeed aim to provide learning environment for web application development, while solving a real world problem. You'll be able to learn:-
 
 * Cherrypy - Among the oldest python web framework, > 10 years being used in production websites.
+* Peewee - Simple (single .py file only) but featureful Python ORM.
 * Riotjs - A React-like user interface micro-library.
 * Automated testing.
 * Modern deployment approach. Easy to run in production setup is Dropibit main key principle.
