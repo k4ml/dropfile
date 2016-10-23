@@ -71,19 +71,3 @@ class Root(object):
     def index(self):
         return open(os.path.join(PROJECT_ROOT, 'public', 'index.html')).read()
 
-config = {
-    '/index.html': {
-        'tools.staticfile.on': True,
-        'tools.staticfile.filename': os.path.join(PROJECT_ROOT, 'public', 'index.html'),
-    },
-    '/public': {
-        'tools.staticdir.on': True,
-        'tools.staticdir.dir': os.path.join(PROJECT_ROOT, 'public'),
-        'tools.staticdir.index': 'index.html',
-    },
-}
-
-db.db.init('dropibit.db')
-cherrypy.tree.mount(Root(), '/', config)
-cherrypy.engine.start()
-cherrypy.engine.block()
