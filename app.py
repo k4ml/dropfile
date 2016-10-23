@@ -18,9 +18,11 @@ along with Dropibit.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
+import config
 
 import db
 import service
+
 import cherrypy
 
 class API(object):
@@ -34,6 +36,8 @@ class API(object):
     def upload(self, myfile):
         storage_dir = cherrypy.config['storage_dir']
         admin_email = cherrypy.config['admin_email']
+        db = cherrypy.config['database']
+
         ext = myfile.filename.split('.')[-1]
         filename = os.path.join(storage_dir,
                                 '%s.%s' % (service.id_generator(), ext))

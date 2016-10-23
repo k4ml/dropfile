@@ -1,10 +1,8 @@
+import config
 
 import os
 import sys
 import unittest
-
-PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
-sys.path.insert(0, os.path.join(PROJECT_ROOT, 'lib'))
 
 import db
 import service

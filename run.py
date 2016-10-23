@@ -16,14 +16,8 @@ GNU General Public License for more details.
 You should have received a copy of the Affero GNU General Public License
 along with Dropibit.  If not, see <http://www.gnu.org/licenses/>.
 """
-
 import os
-import sys
-
-PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
-sys.path.insert(0, os.path.join(PROJECT_ROOT, 'lib'))
-
-STORAGE_DIR = os.path.join(PROJECT_ROOT, 'storage')
+import config
 
 import db
 import service
@@ -41,24 +35,12 @@ def app(admin_email=None):
     db.db.init('dropibit.db')
     cherrypy.config.update({
         'database': db,    
-        'project_root': PROJECT_ROOT,
-        'storage_dir': STORAGE_DIR,
+        'project_root': config.PROJECT_ROOT,
+        'storage_dir': config.STORAGE_DIR,
         'admin_email': admin_email,
     })
 
-    config = {
-        '/index.html': {
-            'tools.staticfile.on': True,
-            'tools.staticfile.filename': os.path.join(PROJECT_ROOT, 'public', 'index.html'),
-        },
-        '/public': {
-            'tools.staticdir.on': True,
-            'tools.staticdir.dir': os.path.join(PROJECT_ROOT, 'public'),
-            'tools.staticdir.index': 'index.html',
-        },
-    }
-
-    cherrypy.tree.mount(Root(), '/', config)
+    cherrypy.tree.mount(Root(), '/', config.APP_CONFIG)
     cherrypy.engine.start()
     cherrypy.engine.block()
 
