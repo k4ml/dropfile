@@ -49,11 +49,16 @@ class API(object):
 
             if size > 0:
                 user = db.User.get(email=admin_email)
-                service.save_file(user, newfile)
-        return [
-            {'name': 'xxxxx'},
-            {'name': 'yyyy'},
-        ]
+                file_ = service.save_file(user, newfile)
+                out = []
+                for alias in file_.aliases.select().limit(5):
+                    out.append({
+                        'name': alias.alias,
+                    })
+
+                return out
+
+        return []
 
     @cherrypy.expose
     @cherrypy.tools.json_out()
