@@ -39,6 +39,9 @@ def app():
     db.db.init('dropibit.db')
     cherrypy.config.update({
         'database': db,    
+        'project_root': PROJECT_ROOT,
+        'storage_dir': STORAGE_DIR,
+        'admin_email': ADMIN_EMAIL,
     })
 
     config = {

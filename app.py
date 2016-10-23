@@ -18,13 +18,6 @@ along with Dropibit.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
-import sys
-
-PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
-sys.path.insert(0, os.path.join(PROJECT_ROOT, 'lib'))
-
-STORAGE_DIR = os.path.join(PROJECT_ROOT, 'storage')
-ADMIN_EMAIL = os.environ['ADMIN_EMAIL']
 
 import db
 import service
@@ -39,7 +32,10 @@ class API(object):
     @cherrypy.expose
     @cherrypy.tools.json_out()
     def upload(self, myfile):
-        filename = os.path.join(STORAGE_DIR, myfile.filename)
+        storage_dir = cherrypy.config['storage_dir']
+        admin_email = cherrypy.config['admin_email']
+        filename = os.path.join(storage_dir, myfile.filename)
+
         with open(filename, 'wb') as newfile:
             size = 0
             while True:
@@ -50,7 +46,7 @@ class API(object):
                 newfile.write(data)
 
             if size > 0:
-                user = db.User.get(email=ADMIN_EMAIL)
+                user = db.User.get(email=admin_email)
                 service.save_file(user, newfile)
         return [
             {'name': 'xxxxx'},
@@ -69,5 +65,6 @@ class Root(object):
 
     @cherrypy.expose
     def index(self):
-        return open(os.path.join(PROJECT_ROOT, 'public', 'index.html')).read()
+        project_root = cherrypy.config['project_root']
+        return open(os.path.join(project_root, 'public', 'index.html')).read()
 
