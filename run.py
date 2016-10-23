@@ -60,5 +60,9 @@ def app():
     cherrypy.engine.start()
     cherrypy.engine.block()
 
+@baker.command
+def shell():
+    import pdb;pdb.set_trace()
+
 if __name__ == '__main__':
     baker.run()
