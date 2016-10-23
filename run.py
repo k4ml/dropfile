@@ -24,7 +24,6 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(PROJECT_ROOT, 'lib'))
 
 STORAGE_DIR = os.path.join(PROJECT_ROOT, 'storage')
-ADMIN_EMAIL = os.environ['ADMIN_EMAIL']
 
 import db
 import service
@@ -35,13 +34,16 @@ import cherrypy
 from app import Root
 
 @baker.command
-def app():
+def app(admin_email=None):
+    if admin_email is None:
+        admin_email = os.environ['ADMIN_EMAIL']
+
     db.db.init('dropibit.db')
     cherrypy.config.update({
         'database': db,    
         'project_root': PROJECT_ROOT,
         'storage_dir': STORAGE_DIR,
-        'admin_email': ADMIN_EMAIL,
+        'admin_email': admin_email,
     })
 
     config = {
