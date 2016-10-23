@@ -34,7 +34,9 @@ class API(object):
     def upload(self, myfile):
         storage_dir = cherrypy.config['storage_dir']
         admin_email = cherrypy.config['admin_email']
-        filename = os.path.join(storage_dir, myfile.filename)
+        ext = myfile.filename.split('.')[-1]
+        filename = os.path.join(storage_dir,
+                                '%s.%s' % (service.id_generator(), ext))
 
         with open(filename, 'wb') as newfile:
             size = 0
