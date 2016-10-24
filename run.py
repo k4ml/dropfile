@@ -25,7 +25,7 @@ import service
 import baker
 import cherrypy
 
-from app import Root
+from app import get_app
 
 @baker.command
 def app(admin_email=None):
@@ -40,7 +40,7 @@ def app(admin_email=None):
         'admin_email': admin_email,
     })
 
-    cherrypy.tree.mount(Root(), '/', config.APP_CONFIG)
+    get_app()
     cherrypy.engine.start()
     cherrypy.engine.block()
 

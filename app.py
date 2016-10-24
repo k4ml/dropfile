@@ -79,3 +79,7 @@ class Root(object):
         project_root = cherrypy.config['project_root']
         return open(os.path.join(project_root, 'public', 'index.html')).read()
 
+def get_app(config_=None):
+    config_ = config_ or config.get_app_config()
+    cherrypy.tree.mount(Root(), '/', config_)
+    return cherrypy.tree

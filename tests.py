@@ -27,38 +27,34 @@ class ServiceTest(unittest.TestCase):
         assert total_alias == num_alias, (total_alias, num_alias)
         assert file_.name == file_name, (file_.name, file_name)
 
+import pytest
+import webtest
 import cherrypy
-from cherrypy.test import helper
+
+from app import get_app
 
 admin_email = 'admin@dropibit.com'
-class SimpleCPTest(helper.CPWebCase):
-    def setup_server():
-        db.db.init(':memory:')
-        db.db.create_tables([db.User, db.File, db.FileAlias])
-        user = db.User.create(email=admin_email)
 
-        from app import Root
-        cherrypy.config.update({
-            'database': db,
-            'project_root': config.PROJECT_ROOT,
-            'storage_dir': config.STORAGE_DIR,
-            'admin_email': admin_email,
-        })
-        cherrypy.tree.mount(Root(), '/', config.APP_CONFIG)
-    setup_server = staticmethod(setup_server)
+@pytest.fixture(scope='module')
+def http():
+    db.db.init(':memory:')
+    db.db.create_tables([db.User, db.File, db.FileAlias])
+    user = db.User.create(email=admin_email)
 
-    def setUp(self):
-        self.setup_class()
+    cherrypy.config.update({
+        'database': db,
+        'project_root': config.PROJECT_ROOT,
+        'storage_dir': config.STORAGE_DIR,
+        'admin_email': admin_email,
+    })
+    return webtest.TestApp(get_app())
 
-    def tearDown(self):
-        self.teardown_class()
+class TestWebAPI(object):
+    def test_index(self, http):
+        resp = http.get("/")
+        assert resp.status_int == 200, resp.status_int
 
-    def test_index(self):
-        self.getPage("/")
-        self.assertStatus('200 OK')
-        self.assertHeader('Content-Type', 'text/html;charset=utf-8')
-
-    def test_upload(self):
+    def test_upload(self, http):
         # Test upload
         body = '\r\n'.join([
             '--x',
@@ -71,9 +67,6 @@ class SimpleCPTest(helper.CPWebCase):
         b = body % ("x" * partlen)
         h = [("Content-type", "multipart/form-data; boundary=x"),
              ("Content-Length", "%s" % len(b))]
-        self.getPage("/api/upload/", h, "POST", b)
-        self.assertStatus('200 OK')
-        self.assertHeader('Content-Type', 'application/json')
-
-if __name__ == '__main__':
-    unittest.main()
+        resp = http.post("/api/upload/", b, h)
+        assert resp.status_int == 200, resp.status_int
+        assert len(resp.json) == 5, resp.json
