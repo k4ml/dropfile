@@ -25,8 +25,6 @@ import service
 import baker
 import cherrypy
 
-from app import get_app
-
 @baker.command
 def app(admin_email=None):
     if admin_email is None:
@@ -40,7 +38,10 @@ def app(admin_email=None):
         'admin_email': admin_email,
     })
 
-    get_app()
+    # We should defer importing app module here as some tools
+    # and plugins may not registered yet. App should always
+    # come from config, which will do any initialization needed.
+    config.get_app()
     cherrypy.engine.start()
     cherrypy.engine.block()
 
