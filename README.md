@@ -27,4 +27,4 @@ This project indeed aim to provide learning environment for web application deve
 * Peewee - Simple (single .py file only) but featureful Python ORM.
 * Riotjs - A React-like user interface micro-library.
 * Automated testing.
-* Modern deployment approach. Easy to run in production setup is Dropibit main key principle.
+* Modern deployment approach. Easy to run in production setup is Dropfile main key principle.
