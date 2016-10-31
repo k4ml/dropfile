@@ -1,6 +1,6 @@
-Dropibit is a simple file sharing web app that allow people to upload any files (can be restricted to certain files only) and get a list of url alias for that file. The alias would be unique and can be passed to different people to download the same file.
+Dropfile is a simple file sharing web app that allow people to upload any files (can be restricted to certain files only) and get a list of url alias for that file. The alias would be unique and can be passed to different people to download the same file.
 
-On top of that, Dropibit provide basic tracking, such as when the file is downloaded and set expiry date on the alias.
+On top of that, Dropfile provide basic tracking, such as when the file is downloaded and set expiry date on the alias.
 
 No registration required to upload files for the initial version but sign up features will be added later.
 
