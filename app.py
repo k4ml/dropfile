@@ -75,7 +75,7 @@ class Root(object):
     api = API()
 
     @cherrypy.expose
-    @cherrypy.tools.template(template='index.html')
+    @cherrypy.tools.template(template='base.html')
     def index(self):
         project_root = cherrypy.config['project_root']
         return {

@@ -49,5 +49,14 @@ def app(admin_email=None):
 def shell():
     import pdb;pdb.set_trace()
 
+@baker.command
+def init_db(database='dropibit.db', admin_email=None):
+    db.db.init(database=database)
+    db.db.create_tables([db.User, db.File, db.FileAlias])
+
+    admin_email = admin_email or os.environ['ADMIN_EMAIL']
+    user = db.User(email=admin_email)
+    user.save()
+
 if __name__ == '__main__':
     baker.run()

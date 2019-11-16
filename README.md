@@ -9,7 +9,12 @@ No registration required to upload files for the initial version but sign up fea
 Download the source code repo with git:-
 
     git clone https://github.com/k4ml/dropfile.git
-    python app.py
+
+
+Then run:-
+
+    ADMIN_EMAIL=yourname@youremail.com python run.py init_db
+    ADMIN_EMAIL=yourname@youremail.com python run.py app
 
 That will start a server at http://localhost:8080/ which you can access with browser.
 
